@@ -46,6 +46,13 @@ func SetAPIURLsV1() gin.HandlerFunc {
 			return
 		}
 
+		if !memory.GetLimiter(bankID).Allow() {
+			c.JSON(429, gin.H{
+				"err": "RATE_LIMIT",
+			})
+			return
+		}
+
 		var req struct {
 			ApiUrls []string `json:"api_urls"`
 		}
