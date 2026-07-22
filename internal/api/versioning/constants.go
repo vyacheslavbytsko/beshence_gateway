@@ -30,12 +30,12 @@ func GetVersionedEndpoints(deps *api.Dependencies) VersionedEndpoints {
 				"/ping":                   misc.PingV1(),
 				"/bank/:bankId/ek":        ek.GetEKV1(),
 				"/bank/:bankId/challenge": challenge.GetChallengeV1(),
-				"/bank/:bankId/api_urls":  urls.GetAPIURLsV1(),
+				"/bank/:bankId/urls":      urls.GetAPIURLsV1(),
 			},
 			http.MethodPost: {
 				"/bank/:bankId/ek":        ek.PostEKV1(),
 				"/bank/:bankId/challenge": challenge.PassChallengeV1(deps),
-				"/bank/:bankId/api_urls":  auth.RequireAuth(deps.JWTManager, urls.SetAPIURLsV1()),
+				"/bank/:bankId/urls":      auth.RequireAuth(deps.JWTManager, urls.SetAPIURLsV1()),
 			},
 		},
 	}
