@@ -14,7 +14,7 @@ type Challenge struct {
 	ExpiresAt  time.Time
 }
 
-type ApiUrls struct {
+type APIURLs struct {
 	ApiUrls   []string  `json:"apiUrls"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }

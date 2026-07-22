@@ -5,6 +5,8 @@ import (
 	"gateway/internal/api/endpoints/challenge"
 	"gateway/internal/api/endpoints/ek"
 	"gateway/internal/api/endpoints/misc"
+	"gateway/internal/api/endpoints/urls"
+	"gateway/internal/auth"
 	"net/http"
 )
 
@@ -28,10 +30,12 @@ func GetVersionedEndpoints(deps *api.Dependencies) VersionedEndpoints {
 				"/ping":                   misc.PingV1(),
 				"/bank/:bankId/ek":        ek.GetEKV1(),
 				"/bank/:bankId/challenge": challenge.GetChallengeV1(),
+				"/bank/:bankId/api_urls":  urls.GetAPIURLsV1(),
 			},
 			http.MethodPost: {
 				"/bank/:bankId/ek":        ek.PostEKV1(),
 				"/bank/:bankId/challenge": challenge.PassChallengeV1(deps),
+				"/bank/:bankId/api_urls":  auth.RequireAuth(deps.JWTManager, urls.SetAPIURLsV1()),
 			},
 		},
 	}

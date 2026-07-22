@@ -5,6 +5,6 @@ import "sync"
 var (
 	Banks      = map[string]Bank{}
 	Challenges = map[string]Challenge{}
-	APIURLs    = map[string]ApiUrls{}
+	APIURLss   = map[string]APIURLs{}
 	Mutex      sync.Mutex
 )
